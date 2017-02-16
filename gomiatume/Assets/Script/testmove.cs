@@ -3,18 +3,38 @@ using System.Collections;
 
 public class testmove : MonoBehaviour
 {
-
     //キャラクターコントローラーへの参照
     CharacterController characterController;
 
-    //移動ベクトル
-    Vector3 moveDirection = new Vector3(0.0f, 0.0f, 1.0f);
+    //アニメーターへの参照
+    public Animator animator;
+
+    //重力
+    private float gravity = 20.0f;
+
+    //移動スピード
+    private float speed = 5.0f;
 
     float inputHorizontal;
     float inputVertical;
     Rigidbody rb;
 
     float moveSpeed = 3f;
+
+    public void Playermove()
+    {
+        if (inputHorizontal != 0 || inputVertical != 0)
+        {
+            //走るアニメーションを再生する
+            animator.SetBool("run", true);
+            //進行方向を向く
+            transform.LookAt(transform.position + new Vector3(inputHorizontal, 0, inputVertical));
+        }
+        else
+        {
+            animator.SetBool("run", false);
+        }
+    }
 
     void Start()
     {
@@ -27,20 +47,29 @@ public class testmove : MonoBehaviour
         //inputVertical = Input.GetAxisRaw("Vertical");
         if (Input.GetKey(KeyCode.D))
         {
-            inputHorizontal = 10 * Time.deltaTime;
+            inputHorizontal = 1;
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
-            inputHorizontal = -10 * Time.deltaTime;
+            inputHorizontal = -1;
+        }
+        else
+        {
+            inputHorizontal = 0;
         }
         if (Input.GetKey(KeyCode.W))
         {
-            inputVertical = 10 * Time.deltaTime;
+            inputVertical = 1;
         }
-        if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
-            inputVertical = -10 * Time.deltaTime;
+            inputVertical = -1;
         }
+        else
+        {
+            inputVertical = 0;
+        }
+        Playermove();
     }
 
     void FixedUpdate()
