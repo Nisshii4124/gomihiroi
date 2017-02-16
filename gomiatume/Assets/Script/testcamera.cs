@@ -30,11 +30,11 @@ public class testcamera : MonoBehaviour
         //}
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.RotateAround(targetPos, Vector3.up, CameraSpeed * Time.deltaTime * 200f);
+            transform.RotateAround(targetPos, Vector3.up, CameraSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.RotateAround(targetPos, Vector3.up, -CameraSpeed * Time.deltaTime * 200f);
+            transform.RotateAround(targetPos, Vector3.up, -CameraSpeed * Time.deltaTime);
         }
     }
 }
